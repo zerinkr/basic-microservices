@@ -1,0 +1,26 @@
+# Maven image
+FROM maven:3.8.8-openjdk-17 AS build
+
+# Working Dir
+WORKDIR /spring-boot-app
+
+# Clone the repository
+RUN git clone https://github.com/zerinkr/zadatak.git /spring-boot-app
+
+# Navigate to the spring-boot-app directory
+WORKDIR /spring-boot-app/node-app
+
+# Build maven app
+RUN mvn clean package
+
+# Use an OpenJDK base image for running the application
+FROM openjdk:17-jdk-alpine
+
+# Copy .jar file 
+COPY --from=build /app/spring-boot-app/target/spring-boot-app.jar /app/spring-boot-app.jar
+
+# Expose port
+EXPOSE 8080
+
+# Define the command to run the application
+ENTRYPOINT ["java", "-jar", "/app/spring-boot-app.jar"]

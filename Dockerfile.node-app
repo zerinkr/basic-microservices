@@ -1,0 +1,20 @@
+# Node image
+FROM node:16
+
+# Working directory
+WORKDIR /basic-microservices
+
+# Clone repo
+RUN git clone https://github.com/zerinkr/basic-microservices.git /basic-microservices
+
+# CD
+WORKDIR /basic-microservices/node-app
+
+# Install dependencies
+RUN npm install
+
+# Open port
+EXPOSE 3000
+
+# Define command to run
+CMD ["npm", "start"]
