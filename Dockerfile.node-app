@@ -13,7 +13,7 @@ WORKDIR /basic-microservices/node-app
 # Install dependencies
 RUN npm install
 
-# Open port
+# Open port - expose
 EXPOSE 3000
 
 # Define command to run
