@@ -1,5 +1,5 @@
 # Maven Image
-FROM maven:3.8.8-openjdk-17 AS build
+FROM maven:3.5.2-jdk-8 AS build
 
 # Working directory
 WORKDIR /basic-microservices
@@ -17,7 +17,7 @@ RUN mvn clean package
 FROM openjdk:17-jdk-alpine
 
 # Copy .jar file 
-COPY --from=build /basic-microservices/spring-boot-app/target/spring-boot-app.jar /basic-microservices/spring-boot-app.jar
+COPY --from=build /basic-microservices/spring-boot-app/target/spring-boot-app-1.0-SNAPSHOT.jar /basic-microservices/spring-boot-app.jar
 
 # Open port - expose
 EXPOSE 8080
